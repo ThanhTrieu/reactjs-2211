@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 
 export default function ButtonComponent(props) {
     // props: tham so chua toan bo porps tu component khac truyen sang
@@ -8,4 +9,11 @@ export default function ButtonComponent(props) {
             onClick={ () => props.click()}
         >{props.children}</button>
     )
+}
+
+ButtonComponent.propTypes = {
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    click: PropTypes.func.isRequired,
+    children: PropTypes.string.isRequired
 }
