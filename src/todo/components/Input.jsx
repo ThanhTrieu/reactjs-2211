@@ -2,6 +2,10 @@
 
 export default function InputTodo(props){
     return (
-        <input type={props.type} onChange={props.change} />
+        <input
+            type={props.type}
+            onChange={props.change}
+            // value={props.val}
+        />
     )
 }

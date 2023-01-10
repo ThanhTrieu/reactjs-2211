@@ -1,11 +1,25 @@
 
 
-export default function ListTodo(){
+export default function ListTodo(props){
     return (
         <ul>
-            <li> hoc html</li>
-            <li> hoc css</li>
-            <li> hoc js</li>
+            {props.todo.map((item, index) => (
+                <li key={index} style={{ marginBottom: '5px' }}>
+
+                    <input
+                        type="checkbox"
+                        onChange={() => props.finish(item.id)}
+                        defaultChecked={item.done}
+                    />
+
+                    <span style={ item.done  ? {color: 'red', textDecoration: 'line-through'} : {} }> {item.name} </span>
+
+                    <button
+                        style={{ marginLeft: '5px' }}
+                        onClick={()=>props.remove(item.id)}
+                    > xoa </button>
+                </li>
+            ))}
         </ul>
     )
 }
