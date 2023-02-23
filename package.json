@@ -11,10 +11,12 @@
   "dependencies": {
     "antd": "^5.1.4",
     "axios": "^1.2.2",
+    "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1"
+    "react-router-dom": "^6.8.1",
+    "react-slugify": "^3.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
