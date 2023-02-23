@@ -26,7 +26,7 @@ const AppProducts = () => {
         }
         // goi ham ra de thuc thi
         getData();
-    }, [id]); // tuong duong voi componentDidMount(class component), tham so thu 2 la 1 mang rong
+    }, []); // tuong duong voi componentDidMount(class component), tham so thu 2 la 1 mang rong
     
     if(isLoading){
         return (
