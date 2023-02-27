@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from "react";
+import {createContext, useContext, useMemo, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 import { loginUser } from '../services/test';
@@ -7,14 +7,26 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children, userData }) => {
   const [user, setUser] = useLocalStorage("user", userData);
+  const [loading, setLoadingLogin] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const login = async (data) => {
-    const result = await loginUser(data);
-    if(result){
-        setUser(result);
+    setLoadingLogin(true);
+    setError(null);
+    await loginUser(data)
+    .then(response => {
+      if(response.hasOwnProperty('token')){
+        setLoadingLogin(false);
+        setUser(response);
         navigate("/", { replace: true });
-    }
+      }
+    })
+    .catch(() => {
+      setLoadingLogin(false);
+      setUser(null);
+      setError({ mess: 'account invalid'});
+    });
   };
 
   const logout = () => {
@@ -25,10 +37,12 @@ export const AuthProvider = ({ children, userData }) => {
   const value = useMemo(
     () => ({
       user,
+      loading,
+      error,
       login,
       logout
     }),
-    [user]
+    [user, loading, error]
   );
 
   return (<AuthContext.Provider value={value}>{children}</AuthContext.Provider>)

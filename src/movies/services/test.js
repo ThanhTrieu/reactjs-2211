@@ -1,14 +1,16 @@
 import axios from "axios";
 
 export const loginUser = async ({username, password}) => {
-    //const url = `http://api.cuongnh2k.space/api/basic/login`;
-    const response = await axios({
+    const response  = await axios({
         method: 'post',
-        url: 'https://fakestoreapi.com/auth/login',
+        url: 'https://dummyjson.com/auth/login',
         data: {
             password: password,
             username: username
+        },
+        headers: {
+            'Content-Type': 'application/json'
         }
     });
-    return response.status === 200 ? response.data : null;
+    return (await response.status === 200 || await response.status === 400) ? await response.data :  null;
 }

@@ -3,10 +3,11 @@ import { useAuth } from "../../test/useAuth";
 
 
 const LoginMovies = () => {
-    const { login } = useAuth();
+    const { login, loading, error } = useAuth();
     const onFinish = (values) => {
+        console.log(loading);
+        console.log(error);
         login(values);
-        console.log('Success:', values);
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -14,18 +15,14 @@ const LoginMovies = () => {
 
     return (
         <Row>
-            <Col span={12} offset={6}>
+            <Col span={6} offset={9}>
+                {error !== null && <h3 style={{textAlign:'center', margin: '20px 0px'}}>{error.mess}</h3>}
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
                     style={{
-                        maxWidth: 600,
-                        marginTop: 20
+                        marginTop: 20,
+                        border: '1px solid #ccc',
+                        padding: 20
                     }}
                     initialValues={{
                         remember: true,
@@ -61,12 +58,11 @@ const LoginMovies = () => {
                     </Form.Item>
 
                     <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
+                      style={{
+                          textAlign: 'center'
+                      }}
                     >
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" loading={loading}>
                             Submit
                         </Button>
                     </Form.Item>
