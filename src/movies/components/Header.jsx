@@ -1,17 +1,33 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
+import { useAuth } from "../hooks/useAuth";
 
 const { Header } = Layout;
-const items = [
-    {label: <NavLink to="/">Popular</NavLink>, key: '/'},
-    {label: <NavLink to="/upcoming">Upcoming</NavLink>, key: '/upcoming'},
-    {label: <NavLink to="/search">Search</NavLink>, key: '/search'},
-    {label: <NavLink to="/login"> Login </NavLink>}
-];
+
 
 const HeaderMovies = () => {
     const { pathname } = useLocation();
+    const { user, logout } = useAuth();
+    let items = [
+        {label: <NavLink to="/">Popular</NavLink>, key: '/'},
+        {label: <NavLink to="/upcoming">Upcoming</NavLink>, key: '/upcoming'},
+        {label: <NavLink to="/search">Search</NavLink>, key: '/search'},
+    ];
+    if(user){
+        // da login
+        items = [
+            ...items,
+            { label: `Hi : ${user['username']}` },
+            { label: <Button onClick={() => logout()}> Logout </Button>}
+        ]
+    } else {
+        // chua login
+        items = [
+            ...items,
+            { label: <NavLink to="/login"> Login </NavLink> }
+        ]
+    }
 
     return (
         <Header>

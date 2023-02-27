@@ -1,17 +1,22 @@
 import { Button, Form, Input, Row, Col } from 'antd';
+import { useAuth } from "../../hooks/useAuth";
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
+
 
 const LoginMovies = () => {
+    const { login, loading, messError } = useAuth();
+    const onFinish = (values) => {
+        //console.log('Success:', values);
+        login(values);
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
 
     return (
         <Row>
             <Col span={6} offset={9}>
+                { messError !== null && <h4 style={{ textAlign: 'center', color: 'red', margin: '20px 0px' }}>{messError.mess}</h4> }
                 <Form
                     name="basic"
                     style={{
@@ -57,8 +62,12 @@ const LoginMovies = () => {
                             textAlign: 'center'
                         }}
                     >
-                        <Button type="primary" htmlType="submit">
-                            Submit
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            loading={loading}
+                        >
+                            Login
                         </Button>
                     </Form.Item>
                 </Form>
