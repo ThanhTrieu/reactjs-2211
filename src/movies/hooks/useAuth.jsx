@@ -23,7 +23,7 @@ export const AuthProvider = ({ children, userData }) => {
                     setUser(response);
                     console.log(`sao chua chuyen trang`);
                     // chuyen trang
-                    navigate("/upcoming", { replace: true });
+                    navigate("/", { replace: true });
                 }
             })
             .catch((error) => {

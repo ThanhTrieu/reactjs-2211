@@ -4,17 +4,13 @@ import { useAuth } from "../hooks/useAuth";
 
 const ProtectedLayoutMovies = ({ children }) => {
     const { user } = useAuth();
-    const outlet   = useOutlet();
-
     if(!user){
         // tu dong chuyen ve trang login - neu chua dang nhap
         return <Navigate to="/login" />
     }
-
     return (
         <>
             {children}
-            {outlet}
         </>
     )
 }
