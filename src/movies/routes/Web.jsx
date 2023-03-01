@@ -4,13 +4,14 @@ import AuthLayoutMovies from '../components/AuthLayout';
 import ProtectedLayoutMovies from '../components/ProtectedLayout';
 import PublicLayout from "../components/PublicLayout";
 import RedirectPage from "../components/RedirectPage";
+import ErrorPage from "../components/commons/404Page";
 import { SpinLoader } from "../components/commons/SpinLoader";
 
-const HomePage = lazy(() => import('../pages/home/index'));
+const HomePage     = lazy(() => import('../pages/home/index'));
 const UpcomingPage = lazy(() => import('../pages/upcoming/index'));
-const SearchPage = lazy(() => import('../pages/search/index'));
-const DetailPage = lazy(() => import('../pages/detail/index'));
-const LoginPage = lazy(() => import('../pages/login/index'));
+const SearchPage   = lazy(() => import('../pages/search/index'));
+const DetailPage   = lazy(() => import('../pages/detail/index'));
+const LoginPage    = lazy(() => import('../pages/login/index'));
 
 
 const getUserData = () => {
@@ -26,13 +27,16 @@ const router = createBrowserRouter([
     {
         element: <AuthLayoutMovies/>,
         loader: () => defer({ userPromise: getUserData() }),
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "redirect-movies",
-                element: <RedirectPage/>
+                element: <RedirectPage/>,
+                errorElement: <ErrorPage />,
             },
             {
                 element: <PublicLayout/>,
+                errorElement: <ErrorPage />,
                 children: [
                     {
                         path: '/',
@@ -56,6 +60,7 @@ const router = createBrowserRouter([
             {
                 path: 'movies',
                 element: <ProtectedLayoutMovies/>,
+                errorElement: <ErrorPage />,
                 children: [
                     {
                         path: 'upcoming',

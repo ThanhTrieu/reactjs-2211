@@ -11,9 +11,9 @@ const HeaderMovies = () => {
     const { user, logout } = useAuth();
 
     let items = [
-        {label: <NavLink to="/">Home</NavLink>, key: '/'},
-        {label: <NavLink to="/movies/upcoming">Upcoming</NavLink>, key: '/movies/upcoming'},
-        {label: <NavLink to="/movies/search">Search</NavLink>, key: '/movies/search'},
+        {label: <NavLink to="/">Home</NavLink>, key: "/"},
+        {label: <NavLink to="/movies/upcoming">Upcoming</NavLink>, key: "/movies/upcoming"},
+        {label: <NavLink to="/movies/search">Search</NavLink>, key: "/movies/search"},
     ];
     if(user){
         // da login
