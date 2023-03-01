@@ -1,15 +1,18 @@
 import { Suspense } from "react";
 import { useLoaderData, useOutlet, Await  } from "react-router-dom";
-import { Spin, Alert } from "antd";
+import { Alert, Row, Col } from "antd";
 import { AuthProvider } from "../hooks/useAuth";
+import { SpinLoader } from "./commons/SpinLoader";
 
-const styleCSS = {
-    margin: '20px 0',
-    marginBottom: '20px',
-    padding: '30px 50px',
-    textAlign: 'center',
-    background: 'rgba(0, 0, 0, 0.05)',
-    borderRadius: '4px'
+
+const AlertErrors = () => {
+    return (
+        <Row>
+            <Col span={12} offset={6}>
+                <Alert message="Something went wrong" type="error" closable />
+            </Col>
+        </Row>
+    )
 }
 
 const AuthLayoutMovies = () => {
@@ -17,11 +20,11 @@ const AuthLayoutMovies = () => {
     const { userPromise } = useLoaderData();
     return (
         <Suspense
-            fallback={(<div style={styleCSS}><Spin/></div>)}
+            fallback={<SpinLoader/>}
         >
             <Await
                 resolve={userPromise}
-                errorElement={<Alert message="Something went wrong" type="error" />}
+                errorElement={<AlertErrors/>}
                 children={(user) => (
                     <AuthProvider userData={user}>
                         {outlet}

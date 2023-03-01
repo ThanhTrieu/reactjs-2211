@@ -7,7 +7,7 @@ const PopularPage = () => {
         <LayoutMovies>
             <Row>
                 <Col span={24}>
-                    <h3> This is popular page</h3>
+                    <h3> This is home page</h3>
                 </Col>
             </Row>
         </LayoutMovies>

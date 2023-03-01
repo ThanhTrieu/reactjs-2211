@@ -1,17 +1,20 @@
 import { Button, Form, Input, Row, Col } from 'antd';
 import { useAuth } from "../../hooks/useAuth";
-
+import { Navigate } from "react-router-dom";
 
 
 const LoginMovies = () => {
-    const { login, loading, messError } = useAuth();
+    const { login, loading, messError, user } = useAuth();
     const onFinish = (values) => {
-        //console.log('Success:', values);
         login(values);
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    if(user) {
+        return <Navigate to="/" />
+    }
 
     return (
         <Row>

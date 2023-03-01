@@ -9,10 +9,11 @@ const { Header } = Layout;
 const HeaderMovies = () => {
     const { pathname } = useLocation();
     const { user, logout } = useAuth();
+
     let items = [
-        {label: <NavLink to="/">Popular</NavLink>, key: '/'},
-        {label: <NavLink to="/upcoming">Upcoming</NavLink>, key: '/upcoming'},
-        {label: <NavLink to="/search">Search</NavLink>, key: '/search'},
+        {label: <NavLink to="/">Home</NavLink>, key: '/'},
+        {label: <NavLink to="/movies/upcoming">Upcoming</NavLink>, key: '/movies/upcoming'},
+        {label: <NavLink to="/movies/search">Search</NavLink>, key: '/movies/search'},
     ];
     if(user){
         // da login

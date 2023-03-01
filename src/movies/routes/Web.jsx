@@ -1,23 +1,17 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, defer } from 'react-router-dom';
-import { Spin } from 'antd';
 import AuthLayoutMovies from '../components/AuthLayout';
 import ProtectedLayoutMovies from '../components/ProtectedLayout';
+import PublicLayout from "../components/PublicLayout";
+import RedirectPage from "../components/RedirectPage";
+import { SpinLoader } from "../components/commons/SpinLoader";
 
-const PopularPage = lazy(() => import('../pages/popular/index'));
+const HomePage = lazy(() => import('../pages/home/index'));
 const UpcomingPage = lazy(() => import('../pages/upcoming/index'));
 const SearchPage = lazy(() => import('../pages/search/index'));
 const DetailPage = lazy(() => import('../pages/detail/index'));
 const LoginPage = lazy(() => import('../pages/login/index'));
 
-const styleCSS = {
-    margin: '20px 0',
-    marginBottom: '20px',
-    padding: '30px 50px',
-    textAlign: 'center',
-    background: 'rgba(0, 0, 0, 0.05)',
-    borderRadius: '4px'
-}
 
 const getUserData = () => {
     return new Promise((resolve) =>
@@ -34,49 +28,60 @@ const router = createBrowserRouter([
         loader: () => defer({ userPromise: getUserData() }),
         children: [
             {
-                path: '/',
-                element: (
-                    <Suspense fallback={(<div style={styleCSS}><Spin/></div>)}>
-                        <PopularPage/>
-                    </Suspense>
-                    
-                )
+                path: "redirect-movies",
+                element: <RedirectPage/>
             },
             {
-                path: 'upcoming',
-                element: (
-                    <Suspense fallback={(<div style={styleCSS}><Spin/></div>)}>
-                        <ProtectedLayoutMovies>
-                            <UpcomingPage/>
-                        </ProtectedLayoutMovies> 
-                    </Suspense>
-                )
+                element: <PublicLayout/>,
+                children: [
+                    {
+                        path: '/',
+                        element: (
+                            <Suspense fallback={<SpinLoader/>}>
+                                <HomePage/>
+                            </Suspense>
+
+                        )
+                    },
+                    {
+                        path: 'login',
+                        element: (
+                            <Suspense fallback={<SpinLoader/>}>
+                                <LoginPage/>
+                            </Suspense>
+                        )
+                    }
+                ]
             },
             {
-                path: 'search',
-                element: (
-                    <Suspense fallback={(<div style={styleCSS}><Spin/></div>)}>
-                        <SearchPage/>
-                    </Suspense>
-                )
-            },
-            {
-                path:'movies/:slug/:id',
-                element: (
-                    <Suspense fallback={(<div style={styleCSS}><Spin/></div>)}>
-                        <ProtectedLayoutMovies>
-                            <DetailPage/>
-                        </ProtectedLayoutMovies>
-                    </Suspense>
-                )
-            },
-            {
-                path: 'login',
-                element: (
-                    <Suspense fallback={(<div style={styleCSS}><Spin/></div>)}>
-                        <LoginPage/>
-                    </Suspense>
-                )
+                path: 'movies',
+                element: <ProtectedLayoutMovies/>,
+                children: [
+                    {
+                        path: 'upcoming',
+                        element: (
+                            <Suspense fallback={<SpinLoader/>}>
+                                <UpcomingPage/>
+                            </Suspense>
+                        )
+                    },
+                    {
+                        path:':slug/:id',
+                        element: (
+                            <Suspense fallback={<SpinLoader/>}>
+                                <DetailPage/>
+                            </Suspense>
+                        )
+                    },
+                    {
+                        path: 'search',
+                        element: (
+                            <Suspense fallback={<SpinLoader/>}>
+                                <SearchPage/>
+                            </Suspense>
+                        )
+                    }
+                ]
             }
         ]
     }
