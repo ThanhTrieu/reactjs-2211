@@ -19,7 +19,9 @@
     "react-router-dom": "^6.8.1",
     "react-slugify": "^3.0.2",
     "redux": "^4.2.1",
-    "redux-saga": "^1.2.2"
+    "redux-saga": "^1.2.2",
+    "reselect": "^4.1.7",
+    "redux-logger": "^3.0.6"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

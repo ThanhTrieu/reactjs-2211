@@ -5,6 +5,13 @@ const getAllProducts = async () => {
     const response = await axios.get(url);
     return response.status === 200 ? response.data : {};
 }
+const getDetailProductById = async (id) => {
+    const url = `https://dummyjson.com/products/${id}`;
+    const response = await axios.get(url);
+    return response.status === 200 ? response.data : {};
+}
+
 export const api = {
-    getAllProducts
+    getAllProducts,
+    getDetailProductById
 }
