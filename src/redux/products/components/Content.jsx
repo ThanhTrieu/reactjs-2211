@@ -4,9 +4,7 @@ import { Layout } from 'antd';
 
 const { Content } = Layout;
 const contentStyle = {
-    textAlign: 'center',
     minHeight: '100vh',
-    lineHeight: '120px',
     color: '#fff',
     backgroundColor: '#108ee9',
 };

@@ -5,11 +5,23 @@ import { helpers } from "../helpers/common";
 
 export function* detailSaga({ id }){
     try {
-        
+        yield put(actions.loadingGetData(true));
+        const data = yield call(api.getDetailProductById, id);
+        if(!helpers.isEmptyObject(data)){
+            yield put(actions.getDetailProductSuccess(data));
+        } else {
+            yield put(actions.getDetailProductFailure({
+                cod: 404,
+                mess: 'Not found data'
+            }));
+        }
     } catch (error) {
-        
+        yield put(actions.getDetailProductFailure({
+            cod: 500,
+            mess: error
+        }))
     } finally {
-
+        yield put(actions.loadingGetData(false));
     }
 }
 

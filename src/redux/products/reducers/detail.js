@@ -1,8 +1,8 @@
 import * as types from '../actions/detail';
 
 const defaultState = {
-    loading: false,
-    error: {},
+    loadingDetail: false,
+    errorDetail: {},
     detail: {}
 }
 
@@ -11,18 +11,18 @@ export const detailReducer = (state = defaultState, action) => {
         case types.LOADING_GET_DATA:
             return {
                 ...state,
-                loading: action.loading
+                loadingDetail: action.loading
             }
         case types.GET_DETAIL_PRODUCT_SUCCESS:
             return {
                 ...state,
-                error: {},
+                errorDetail: {},
                 detail: action.detail
             }
         case types.GET_DETAIL_PRODUCT_FAILURE:
             return {
                 ...state,
-                error: action.error
+                errorDetail: action.error
             }
         default:
             return state;
