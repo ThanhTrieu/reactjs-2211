@@ -23,11 +23,17 @@ export const cartReducer = (state = stateCartDefault, action) => {
                 }
             } else {
                 // san pham da co trong gio hang
-                dataPd.qty += qtyPd;
-                return {
-                    ...state,
-                    dataCarts: state.dataCarts
+                let newQtyPd = findPd.qty + qtyPd;
+                const newDataPd = state.dataCarts.map(item => {
+                    return (item.id === idPd) ? {...item, qty: newQtyPd} : item;
+                });
+                if(newDataPd !== undefined && newDataPd !== null){
+                    return {
+                        ...state,
+                        dataCarts: newDataPd
+                    }
                 }
+                return state;
             }
         case types.DELETE_ITEM_CART:
             const idPdDel = action.id;

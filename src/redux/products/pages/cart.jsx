@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as reselect from '../reselect/cart';
 import { Row, Col, Image, InputNumber, Button } from "antd";
 import { deleteItemCart, changeQtyItemCart } from "../actions/cart";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
     const { checkCart, carts, totalMoney } = useSelector(createStructuredSelector({
@@ -47,27 +48,26 @@ const CartPage = () => {
                                 <h2>{item.title}</h2>
                                 <p>Price: {item.price}</p>
                                 <p>Money: {item.price*item.qty}</p>
-                                <p>
-                                    <InputNumber
-                                        min={1}
-                                        max={10}
-                                        value={item.qty}
-                                        onChange={q => changeItem(item.id, q)}
-                                    />
-                                </p>
-                                <p>
-                                    <Button
-                                        type="dashed"
-                                        danger
-                                        onClick={()=>removeItem(item.id)}
-                                    > delete</Button>
-                                </p>
+                                <InputNumber
+                                    min={1}
+                                    max={10}
+                                    value={item.qty}
+                                    onChange={q => changeItem(item.id, q)}
+                                />
+                                <Button
+                                    type="dashed"
+                                    danger
+                                    onClick={()=>removeItem(item.id)}
+                                > delete</Button>
                             </Col>
                         </Row>
                     ))}
                     <Row>
                         <Col span={24}>
                             <h2> Tong tien: {totalMoney}</h2>
+                            <Link to="/payment">
+                                <Button type="primary">Thanh Toan</Button>
+                            </Link>
                         </Col>
                     </Row>
                 </Col>
